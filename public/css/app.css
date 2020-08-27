@@ -1,0 +1,121 @@
+body{
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    background-color: #c3c3c3;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #90caf9;
+    animation: entrada 2s;
+}
+main{
+    width: 100%;
+}
+footer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #90caf9;
+}
+.logo{
+    width: 100%;
+    height: 100%;;
+}
+header div{
+    display: none;
+    width: 30%;
+}
+header nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+}
+header nav a{
+    font-size: 2rem;
+    text-decoration: none;
+    color: #000000;
+   
+}
+header nav a:hover{
+    border-bottom: 1px solid #000000;
+    padding-bottom: 20px;
+}
+/*Estilos Imagenes*/
+section{
+    display: flex;
+    flex-flow: row wrap;
+}
+section article{
+    flex: 1 1 33.33%;
+    transition: filter 1s;
+}
+section div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 50%;
+}
+section div img{
+    transition: transform 1s;
+}
+section div img:hover{
+    transform: rotate(10deg);
+    /* transform: translateY(5px) translateX(-20px); */
+}
+section div p{
+    margin: 0 10%;
+}
+article:nth-child(1):hover{
+    filter: blur(5px);
+}
+article:nth-child(2):hover{
+    filter: grayscale(100%);
+}
+article:nth-child(3):hover{
+    filter: sepia(100%);
+}
+
+/*animaciones css*/
+@-webkit-keyframes entrada {
+    0%{
+        margin-top: 150%;
+    }
+    50%{
+        margin-top:-5%; 
+    }
+    100%{
+        margin-top: 0%;
+    }
+}
+
+/*empiza a ser responsive*/
+@media screen and (max-width:768px){
+    header nav a{
+        font-size: 1.5rem;
+    }
+}
+@media screen and (max-width:404px){
+    header{
+        flex-direction: column;
+    }
+    header nav{
+        width: 100%;
+        justify-content: space-between;
+    }
+    section{
+        flex-flow: column wrap;
+    }
+    header div{
+        display: inline;
+    }
+}
+
