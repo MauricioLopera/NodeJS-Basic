@@ -4,45 +4,21 @@
 
 //importamos el uso de express en este documento
 const express = require('express');
-//importamos el uso de router para poder darle manejo a las peticiones
-const router = express.Router();
+
 //importamos el uso de body-parser
 const bodyParser = require('body-parser');
-//importo mi archivo de respuestas personalizadas
-const response = require('./network/responses');
+
+//importamos nuestro archivo de rutas
+const router = require('./network/routes');
 
 //inicializamos express y demas librerias, el body parser debe ir antes del router para que funcione correctamente
 var app = express();
 app.use(bodyParser.json());
-app.use(router);
+//app.use(router);
 
+//pasamos el servidor al archivo de rutas para que genere la rutas necesarias
+router(app);
 
-//definimos las rutas segun el tipo de peticion y uri
-router.get('/', function(req,res){
-    console.log(req.headers);
-    res.header({
-        "custom-header":"Valor personalizado"
-    });
-    //res.status(201).send('Server running');
-    response.success(req,res,'Server running');
-});
-
-router.post('/create', function(req,res){
-    console.log(req.query);
-    console.log(req.body);
-    //res.send(`Se guardo el mensaje ${req.body.mensaje}`);
-    response.success(req,res,`Se guardo el mensaje ${req.body.mensaje}`,201);
-});
-
-router.delete('/delete',function(req,res){
-    //res.send('Delete executed');
-    if(req.query.fail == 'yes'){
-        response.error(req,res,'Error on delete','This is a simulated error');
-    }else{
-        response.success(req,res,'Deleted success');
-    }
-    
-});
 
 //defino una ruta por defecto sin usar router
 // app.use('/', function(req,res){
