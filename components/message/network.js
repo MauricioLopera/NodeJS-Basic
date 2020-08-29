@@ -3,22 +3,33 @@ const express = require('express');
 const router = express.Router();
 //importo mi archivo de respuestas personalizadas
 const response = require('../../network/responses');
+//importo la logica de negocio
+const cotroller = require('./controller');
+const controller = require('./controller');
 
 //definimos las rutas segun el tipo de peticion y uri
 router.get('/', function(req,res){
-    console.log(req.headers);
-    res.header({
-        "custom-header":"Valor personalizado"
-    });
-    //res.status(201).send('Server running');
-    response.success(req,res,'Server running');
+    controller.getMessages()
+        .then((messageList) => {
+            response.success(req,res,messageList,200);
+        })
+        .catch(e => {
+            response.error(req,res,'No hay datos para mostrar',e,500);
+        });
 });
 
 router.post('/', function(req,res){
-    console.log(req.query);
-    console.log(req.body);
+    //envio el mensaje al controlador
+    controller.addMessage(req.body.user, req.body.message)
+        .then((fullMessage) => {
+            response.success(req,res,`Mensaje almacenado satisfactoriamente: ${fullMessage.message}`,200);
+        })
+        .catch(e => {
+            response.error(req,res,e,e,400);
+        });
+
     //res.send(`Se guardo el mensaje ${req.body.mensaje}`);
-    response.success(req,res,`Se guardo el mensaje ${req.body.mensaje}`,201);
+    
 });
 
 router.delete('/',function(req,res){
